@@ -1,0 +1,3 @@
+[submodule "VL53L3CX_pipico"]
+	path = VL53L3CX_pipico
+	url = https://github.com/Sir-Photch/VL53L3CX_pipico
