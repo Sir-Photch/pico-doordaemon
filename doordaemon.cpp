@@ -35,7 +35,8 @@
 #define POLL_TIME_S 5
 
 #define MSG_MAX 64
-#define MIN_CLOSE_TIME_S 2
+#define MIN_CLOSE_TIME_MS 500
+#define TIMEOUT_MS 1000
 #define DISTANCE_THRESHOLD_MM 750
 
 #define FAIL(fmt, ...)          \
@@ -212,9 +213,10 @@ int main() {
       uint64_t us_since_close = to_us_since_boot(get_absolute_time()) -
                                 to_us_since_boot(close_interval_start);
 
-      if (MIN_CLOSE_TIME_S < us_since_close / 1000000) {
+      if (MIN_CLOSE_TIME_MS < us_since_close / 1000) {
         multicore_fifo_push_blocking(closest_mm);
         somebody_is_close = false;
+        sleep_ms(TIMEOUT_MS);
       }
     }
 
